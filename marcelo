@@ -1,0 +1,3399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcelo D'Ávila - Automações Premium v2.4 - ACELERADO</title>
+    
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"></noscript>
+    
+    <style>
+        /* RESET E VARIÁVEIS PREMIUM */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --color-bg: #F8F5F0;
+            --color-text-primary: #33353A;
+            --color-text-secondary: #5A5F66;
+            --color-cta: #1A2035;
+            --color-accent: #D4AF37;
+            --pure-white: #ffffff;
+            --success-green: #10b981;
+            --error-red: #ef4444;
+            --warning-yellow: #f59e0b;
+            
+            --gradient-primary: linear-gradient(135deg, #F8F5F0 0%, #E8E5E0 100%);
+            --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #E8C547 100%);
+            --gradient-luxury: linear-gradient(135deg, #F8F5F0 0%, #E8E5E0 50%, #D8D5D0 100%);
+            
+            --shadow-luxury: 0 8px 32px rgba(26, 32, 53, 0.15);
+            --shadow-gold: 0 8px 24px rgba(212, 175, 55, 0.2);
+            --shadow-card: 0 4px 16px rgba(26, 32, 53, 0.08);
+            --shadow-soft: 0 2px 8px rgba(26, 32, 53, 0.06);
+            
+            --transition-elegant: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.15s ease-out;
+            --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        /* CORE LAYOUT PREMIUM */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gradient-luxury);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        .background-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .background-effects.loaded {
+            opacity: 1;
+        }
+
+        .background-effects::before,
+        .background-effects::after {
+            content: '';
+            position: absolute;
+            width: 30%;
+            height: 30%;
+            border-radius: 50%;
+        }
+
+        .background-effects::before {
+            top: -15%;
+            right: -15%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.04) 0%, transparent 70%);
+            animation: floatSlow 8s ease-in-out infinite;
+        }
+
+        .background-effects::after {
+            bottom: -15%;
+            left: -15%;
+            background: radial-gradient(circle, rgba(232, 197, 71, 0.03) 0%, transparent 70%);
+            animation: floatSlow 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .container {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        /* LOADING OVERLAY PREMIUM */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-luxury);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.3s ease-out;
+        }
+
+        .loading-overlay.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: var(--color-text-primary);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(212, 175, 55, 0.3);
+            border-top: 4px solid var(--color-accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-accent);
+        }
+
+        /* CHAT BUBBLE PREMIUM MOBILE-FIRST OTIMIZADO */
+        .chat-bubble {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--pure-white);
+            color: var(--color-text-primary);
+            padding: 18px 22px;
+            border-radius: 20px;
+            
+            /* ALINHAMENTO PERFEITO COM CONTAINER PRINCIPAL */
+            max-width: 420px;
+            width: calc(100vw - 40px);
+            min-width: 280px;
+            
+            box-shadow: var(--shadow-luxury);
+            border: 2px solid var(--color-accent);
+            display: none;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            animation-fill-mode: both;
+            
+            /* CENTRALIZAÇÃO PREMIUM */
+            margin: 0 auto;
+        }
+
+        /* SETAS DO BUBBLE AJUSTADAS E CENTRALIZADAS */
+        .chat-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 12px 12px 0 12px;
+            border-style: solid;
+            border-color: var(--pure-white) transparent transparent transparent;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.1));
+        }
+
+        .chat-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 14px 14px 0 14px;
+            border-style: solid;
+            border-color: var(--color-accent) transparent transparent transparent;
+            z-index: -1;
+        }
+
+        /* ESTADOS DO BUBBLE APRIMORADOS */
+        .chat-bubble.active {
+            display: block;
+            animation: chatBubbleEnter 0.6s var(--transition-bounce);
+        }
+
+        .chat-bubble.completed {
+            animation: chatBubbleSuccess 0.8s ease-out;
+            border-color: var(--success-green);
+        }
+
+        .chat-bubble.exit {
+            animation: chatBubbleExit 0.4s ease-in-out forwards;
+        }
+
+        /* ANIMAÇÕES PREMIUM SUAVIZADAS */
+        @keyframes chatBubbleEnter {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(40px) scale(0.7);
+            }
+            60% {
+                opacity: 0.9;
+                transform: translateX(-50%) translateY(-8px) scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0) scale(1);
+            }
+        }
+
+        @keyframes chatBubbleSuccess {
+            0% { 
+                border-color: var(--color-accent); 
+                transform: translateX(-50%) scale(1);
+            }
+            30% { 
+                border-color: var(--success-green);
+                transform: translateX(-50%) scale(1.03);
+                box-shadow: var(--shadow-luxury), 0 0 20px rgba(16, 185, 129, 0.3);
+            }
+            100% { 
+                border-color: var(--color-accent);
+                transform: translateX(-50%) scale(1);
+            }
+        }
+
+        @keyframes chatBubbleExit {
+            0% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(30px) scale(0.8);
+            }
+        }
+
+        /* TIPOGRAFIA OTIMIZADA E RESPONSIVA */
+        .chat-bubble .typewriter-text {
+            font-size: 15px;
+            line-height: 1.5;
+            font-weight: 600;
+            text-align: center;
+            color: var(--color-text-primary);
+            margin: 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        /* INDICADOR FALANDO APRIMORADO */
+        .chat-bubble .speaking-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 10px;
+            opacity: 0.8;
+        }
+
+        .chat-bubble .dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--color-accent);
+            animation: speakingDots 1.8s infinite;
+        }
+
+        .chat-bubble .dot:nth-child(2) { animation-delay: 0.3s; }
+        .chat-bubble .dot:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes speakingDots {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+            30% {
+                transform: translateY(-8px);
+                opacity: 1;
+            }
+        }
+
+        /* ÍCONE MICROFONE REPOSICIONADO E PREMIUM */
+        .chat-bubble .mic-icon {
+            position: absolute;
+            top: -10px;
+            right: 12px;
+            background: var(--color-accent);
+            color: var(--pure-white);
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            animation: micPulse 2.5s infinite;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+        }
+
+        .chat-bubble .mic-icon.completed {
+            background: var(--success-green);
+            animation: micSuccess 0.8s ease-out;
+        }
+
+        @keyframes micPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+            }
+            50% {
+                transform: scale(1.15);
+                box-shadow: 0 6px 18px rgba(212, 175, 55, 0.6);
+            }
+        }
+
+        @keyframes micSuccess {
+            0% { transform: scale(1); }
+            50% { 
+                transform: scale(1.25);
+                box-shadow: 0 6px 18px rgba(16, 185, 129, 0.6);
+            }
+            100% { 
+                transform: scale(1);
+                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+            }
+        }
+
+        /* INDICADOR DE STATUS DE VOZ PREMIUM */
+        .voice-status-indicator {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: rgba(26, 32, 53, 0.95);
+            color: var(--color-bg);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            z-index: 999;
+            backdrop-filter: blur(15px);
+            border: 2px solid var(--color-accent);
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: var(--transition-elegant);
+            pointer-events: none;
+            box-shadow: var(--shadow-card);
+        }
+
+        .voice-status-indicator.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .voice-status-indicator.tts-mode {
+            border-color: var(--success-green);
+            background: rgba(16, 185, 129, 0.95);
+        }
+
+        .voice-status-indicator.fallback-mode {
+            border-color: var(--warning-yellow);
+            background: rgba(245, 158, 11, 0.95);
+        }
+
+        .voice-status-indicator.reading-section {
+            animation: readingPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes readingPulse {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-2px) scale(1.02); }
+        }
+
+        /* SEÇÕES PRINCIPAIS PREMIUM */
+        .hero-section, .name-section, .welcome-banner, .personalized-message-section, 
+        .regional-section, .proposal-section, .demo-section, .quiz-section, 
+        .bonus-section, .offer-section, .checkout-section, .whatsapp-section {
+            background: var(--color-bg);
+            border-radius: 16px;
+            padding: 30px 25px;
+            margin: 25px 0;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 0.5s ease-out;
+            display: none;
+            transition: var(--transition-elegant);
+        }
+
+        /* NOVA ESTRUTURA: HERO PRIMEIRO, NAME EMBAIXO */
+        .hero-section {
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .name-section {
+            display: block;
+            margin-top: 15px;
+        }
+
+        .hero-section::before, .name-section::before, .proposal-section::before, 
+        .quiz-section::before, .checkout-section::before, .demo-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-gold);
+        }
+
+        .section-active {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-luxury);
+            border-color: var(--color-accent);
+        }
+
+        .section-reading {
+            animation: sectionReading 3s ease-in-out infinite;
+        }
+
+        @keyframes sectionReading {
+            0%, 100% { 
+                box-shadow: var(--shadow-card);
+                border-color: rgba(212, 175, 55, 0.1);
+            }
+            50% { 
+                box-shadow: var(--shadow-luxury);
+                border-color: var(--color-accent);
+            }
+        }
+
+        .hero-title {
+            font-size: 24px;
+            font-weight: 900;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+            text-align: center;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: var(--color-text-secondary);
+            font-weight: 600;
+            margin-bottom: 0;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .hero-cta, .name-submit, .final-checkout-btn {
+            background: var(--color-cta);
+            color: var(--color-bg);
+            border: none;
+            padding: 18px 30px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            font-family: inherit;
+            transition: var(--transition-elegant);
+            animation: pulse 2s infinite;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+
+        .hero-cta:hover, .name-submit:hover, .final-checkout-btn:hover {
+            transform: translateY(-2px);
+            background: var(--color-text-primary);
+            box-shadow: var(--shadow-luxury);
+        }
+
+        .hero-cta:disabled, .name-submit:disabled, .final-checkout-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* SEÇÕES SECUNDÁRIAS */
+        .hidden { display: none !important; }
+        .fade-out { opacity: 0; transition: opacity 0.3s ease-out; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* BANNER BOAS-VINDAS PREMIUM */
+        .welcome-banner, .regional-section, .bonus-section, .offer-section, .whatsapp-section {
+            background: var(--gradient-gold);
+            color: var(--color-cta);
+            padding: 25px 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 800;
+            font-size: 20px;
+            animation: welcomeAnimation 0.8s ease-out;
+            box-shadow: var(--shadow-gold);
+        }
+
+        @keyframes welcomeAnimation {
+            0% { transform: scale(0.8) rotateY(-15deg); opacity: 0; }
+            50% { transform: scale(1.05) rotateY(0deg); opacity: 1; }
+            100% { transform: scale(1) rotateY(0deg); opacity: 1; }
+        }
+
+        /* NAME SECTION */
+        .name-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-secondary);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .name-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--color-accent);
+            border-radius: 12px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-family: inherit;
+            font-weight: 600;
+            text-align: center;
+            color: var(--color-text-primary);
+            background: var(--pure-white);
+            transition: var(--transition-elegant);
+        }
+
+        .name-input:focus {
+            outline: none;
+            border-color: var(--color-cta);
+            box-shadow: 0 0 0 3px rgba(26, 32, 53, 0.15);
+        }
+
+        .name-input.error {
+            border-color: var(--error-red);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* MENSAGEM PERSONALIZADA ULTRA PREMIUM */
+        .personalized-message-section {
+            padding: 0;
+            animation: messageReveal 1.2s ease-out;
+        }
+
+        @keyframes messageReveal {
+            0% { opacity: 0; transform: scale(0.9) rotateX(15deg); }
+            50% { opacity: 0.8; transform: scale(1.02) rotateX(0deg); }
+            100% { opacity: 1; transform: scale(1) rotateX(0deg); }
+        }
+
+        .message-header {
+            background: var(--gradient-gold);
+            color: var(--color-cta);
+            padding: 25px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-cta) 0%, var(--color-accent) 50%, var(--color-cta) 100%);
+        }
+
+        .message-title {
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: -0.5px;
+        }
+
+        .message-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 600;
+        }
+
+        .journey-container {
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .journey-title {
+            color: var(--color-text-primary);
+            margin-bottom: 20px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .route-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .route-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 15px;
+        }
+
+        .point-marker {
+            font-size: 1.8em;
+            margin-bottom: 8px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .point-label {
+            background: var(--pure-white);
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            box-shadow: var(--shadow-soft);
+            font-size: 12px;
+        }
+
+        .route-line {
+            flex: 1;
+            height: 4px;
+            background: var(--gradient-gold);
+            position: relative;
+            margin: 0 10px;
+            border-radius: 2px;
+            min-width: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .moving-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--color-cta);
+            border-radius: 50%;
+            position: absolute;
+            animation: moveDot 3s infinite;
+            box-shadow: 0 0 8px rgba(26, 32, 53, 0.6);
+        }
+
+        @keyframes moveDot {
+            0% { left: 0; }
+            50% { left: calc(100% - 10px); }
+            100% { left: 0; }
+        }
+
+        .distance-label {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3px 6px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            position: absolute;
+            top: -20px;
+        }
+
+        .distance-info {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .distance-item {
+            background: var(--pure-white);
+            padding: 12px 16px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-soft);
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .distance-item .number {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--color-cta);
+            display: block;
+        }
+
+        .distance-item .label {
+            font-size: 11px;
+            color: var(--color-text-secondary);
+            font-weight: 600;
+        }
+
+        .location-badges {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            gap: 10px;
+        }
+
+        .location-badge {
+            background: var(--gradient-gold);
+            color: var(--color-cta);
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            box-shadow: var(--shadow-gold);
+            flex: 1;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .personal-message-container {
+            padding: 25px 20px;
+            background: var(--pure-white);
+            margin: 0;
+        }
+
+        .personal-message {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-text-primary);
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .heart-icon {
+            color: #e74c3c;
+            font-size: 1.1em;
+            animation: heartbeat 2s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .signature {
+            text-align: right;
+            font-style: italic;
+            color: var(--color-text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .message-cta-container {
+            background: var(--gradient-gold);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .message-cta-text {
+            color: var(--color-cta);
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .message-impact-points {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .impact-point {
+            background: rgba(26, 32, 53, 0.1);
+            color: var(--color-cta);
+            padding: 12px 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .message-timestamp {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 12px 20px;
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .message-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .message-loading .loading-spinner {
+            width: 35px;
+            height: 35px;
+            border: 3px solid rgba(212, 175, 55, 0.2);
+            border-top: 3px solid var(--color-accent);
+            margin-bottom: 15px;
+        }
+
+        .message-loading .loading-text {
+            font-size: 14px;
+            color: var(--color-accent);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .message-loading .loading-subtext {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+
+        /* SAUDAÇÃO REGIONAL PREMIUM */
+        .regional-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .time-location {
+            background: rgba(26, 32, 53, 0.1);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        .location-status {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .geo-retry {
+            background: var(--warning-yellow);
+            color: var(--color-cta);
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            margin-left: 8px;
+            transition: var(--transition-fast);
+        }
+
+        .geo-retry:hover {
+            background: #d97706;
+        }
+
+        /* PROPOSTA ATUALIZADA */
+        .proposal-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .proposal-highlight {
+            background: var(--gradient-gold);
+            color: var(--color-cta);
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-weight: 800;
+            margin: 15px 0;
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* DEMO SECTION */
+        .demo-gif {
+            width: 100%;
+            max-width: 280px;
+            height: 200px;
+            background: linear-gradient(45deg, #f5f5f5, #e8e8e8);
+            border-radius: 12px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            animation: phoneDemo 3s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+
+        .demo-gif::after {
+            content: '▶️';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(26, 32, 53, 0.8);
+            color: var(--color-bg);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        @keyframes phoneDemo {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.05); }
+            50% { transform: scale(1.1); }
+            75% { transform: scale(1.05); }
+        }
+
+        .demo-caption {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* QUIZ SECTION COM 4 OPÇÕES PREMIUM */
+        .quiz-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--color-accent);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-option {
+            background: var(--pure-white);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            color: var(--color-text-secondary);
+            padding: 18px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 700;
+            transition: var(--transition-elegant);
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-option::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient-gold);
+            border-radius: 12px;
+            opacity: 0;
+            transition: var(--transition-elegant);
+            z-index: -1;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--color-accent);
+            background: var(--color-bg);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .quiz-option:hover::before {
+            opacity: 0.1;
+        }
+
+        .quiz-option.selected {
+            border-color: var(--color-accent);
+            background: var(--gradient-gold);
+            color: var(--color-cta);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-gold);
+            z-index: 2;
+        }
+
+        .quiz-option.selected::before {
+            opacity: 0;
+        }
+
+        .quiz-option:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .quiz-option .emoji {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .quiz-option .price {
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .quiz-timer {
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 14px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .timer-bar {
+            width: 120px;
+            height: 6px;
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .timer-fill {
+            height: 100%;
+            background: var(--gradient-gold);
+            width: 100%;
+            transition: width 1s linear;
+            border-radius: 3px;
+        }
+
+        /* SEÇÃO DE BÔNUS SIMPLIFICADA */
+        .bonus-section {
+            background: var(--gradient-gold);
+            color: var(--color-cta);
+            position: relative;
+            overflow: hidden;
+            animation: bonusReveal 1s ease-out;
+        }
+
+        @keyframes bonusReveal {
+            0% { opacity: 0; transform: scale(0.9) rotateY(20deg); }
+            50% { opacity: 0.8; transform: scale(1.05) rotateY(-5deg); }
+            100% { opacity: 1; transform: scale(1) rotateY(0deg); }
+        }
+
+        .bonus-title {
+            font-size: 18px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .bonus-items {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .bonus-item {
+            background: rgba(26, 32, 53, 0.1);
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin: 8px 0;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .bonus-urgency {
+            background: rgba(239, 68, 68, 0.2);
+            color: #dc2626;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-top: 15px;
+            font-weight: 700;
+            animation: urgencyPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes urgencyPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* OFFER SECTION */
+        .offer-chosen {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .offer-real {
+            font-size: 24px;
+            font-weight: 900;
+            margin: 15px 0;
+        }
+
+        .offer-savings {
+            background: var(--success-green);
+            color: var(--pure-white);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        /* === CHECKOUT COMPLETO PREMIUM === */
+        .checkout-section {
+            background: var(--pure-white);
+            border: 2px solid var(--color-accent);
+            box-shadow: var(--shadow-luxury);
+        }
+
+        .checkout-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--color-accent);
+            text-align: center;
+            margin-bottom: 25px;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .checkout-form {
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: inherit;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            background: var(--color-bg);
+            transition: var(--transition-elegant);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+            background: var(--pure-white);
+        }
+
+        .form-input.error {
+            border-color: var(--error-red);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .form-input.success {
+            border-color: var(--success-green);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        /* MÉTODOS DE PAGAMENTO INLINE */
+        .payment-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-secondary);
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .payment-option {
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 18px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-elegant);
+            background: var(--color-bg);
+            position: relative;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .payment-option:hover {
+            border-color: var(--color-accent);
+            background: var(--pure-white);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .payment-option.selected {
+            border-color: var(--color-accent);
+            background: var(--gradient-gold);
+            color: var(--color-cta);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .payment-option::after {
+            content: '✓';
+            position: absolute;
+            top: 5px;
+            right: 8px;
+            background: var(--success-green);
+            color: var(--pure-white);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            opacity: 0;
+            transform: scale(0);
+            transition: var(--transition-elegant);
+        }
+
+        .payment-option.selected::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .payment-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .payment-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* BOTÃO DE FINALIZAÇÃO PREMIUM */
+        .final-checkout-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .final-checkout-btn.processing {
+            background: var(--color-accent);
+            animation: pulse 1.5s infinite;
+        }
+
+        .final-checkout-btn .checkout-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(248, 245, 240, 0.3);
+            border-top: 2px solid var(--color-bg);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        .final-checkout-btn.processing .checkout-spinner {
+            display: block;
+        }
+
+        /* STATUS DE CHECKOUT */
+        .checkout-status {
+            margin-top: 15px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .checkout-status.success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success-green);
+            color: var(--success-green);
+        }
+
+        .checkout-status.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--error-red);
+            color: var(--error-red);
+        }
+
+        .checkout-status.processing {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        .checkout-status.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* INDICADOR DE DOCUMENTO TIPO */
+        .document-type-indicator {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-top: 3px;
+            opacity: 0.8;
+        }
+
+        /* WHATSAPP SECTION */
+        .whatsapp-text {
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: var(--pure-white);
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: var(--transition-elegant);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-card);
+        }
+
+        /* LISTA DE CHECKMARKS */
+        .proposal-checklist {
+            text-align: left;
+            margin: 20px 0;
+            padding: 0;
+        }
+
+        .proposal-checklist li {
+            list-style: none;
+            padding: 8px 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .proposal-checklist li::before {
+            content: '✅';
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* RESPONSIVIDADE PREMIUM MOBILE-FIRST OTIMIZADA */
+        @media (max-width: 480px) {
+            .container { padding: 0 15px; }
+            
+            .hero-section, .name-section, .proposal-section, .quiz-section, 
+            .checkout-section, .personalized-message-section, .demo-section {
+                margin: 15px 0 20px;
+                padding: 25px 20px;
+                border-radius: 12px;
+            }
+            
+            .personalized-message-section { padding: 0; }
+            .journey-container, .personal-message-container, .message-cta-container { padding: 20px 15px; }
+            .message-header { padding: 20px 15px; }
+            
+            .hero-title { font-size: 20px; }
+            .hero-subtitle { font-size: 15px; }
+            
+            .demo-gif {
+                height: 160px;
+                max-width: 240px;
+            }
+            
+            /* CHAT BUBBLE MOBILE OTIMIZADO */
+            .chat-bubble {
+                bottom: 15px;
+                padding: 16px 20px;
+                width: calc(100vw - 30px);
+                max-width: calc(100vw - 30px);
+                min-width: 280px;
+                border-radius: 18px;
+            }
+            
+            .chat-bubble .typewriter-text {
+                font-size: 14px;
+                line-height: 1.4;
+            }
+            
+            .chat-bubble .mic-icon {
+                width: 24px;
+                height: 24px;
+                font-size: 12px;
+                top: -8px;
+                right: 10px;
+            }
+            
+            .chat-bubble .speaking-indicator {
+                gap: 5px;
+                margin-left: 8px;
+            }
+            
+            .chat-bubble .dot {
+                width: 4px;
+                height: 4px;
+            }
+            
+            .quiz-options {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            
+            .quiz-option {
+                padding: 15px 10px;
+                font-size: 13px;
+            }
+            
+            .quiz-option .emoji {
+                font-size: 16px;
+                margin-bottom: 3px;
+            }
+            
+            .quiz-option .price {
+                font-size: 14px;
+            }
+            
+            .payment-options {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .route-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .route-line {
+                transform: rotate(90deg);
+                width: 60px;
+                min-width: 60px;
+            }
+            
+            .distance-label {
+                top: -15px;
+                left: 50%;
+                transform: translateX(-50%) rotate(-90deg);
+            }
+            
+            .moving-dot {
+                animation: moveDotVertical 3s infinite;
+            }
+            
+            @keyframes moveDotVertical {
+                0% { top: 0; }
+                50% { top: calc(100% - 10px); }
+                100% { top: 0; }
+            }
+            
+            .location-badges, .distance-info {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .distance-info {
+                align-items: center;
+            }
+            
+            .message-impact-points {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .voice-status-indicator {
+                top: 10px;
+                right: 10px;
+                padding: 6px 10px;
+                font-size: 10px;
+            }
+        }
+
+        /* PARA TELAS MUITO PEQUENAS */
+        @media (max-width: 360px) {
+            .chat-bubble {
+                width: calc(100vw - 20px);
+                max-width: calc(100vw - 20px);
+                padding: 14px 18px;
+                min-width: 260px;
+            }
+            
+            .chat-bubble .typewriter-text {
+                font-size: 13px;
+            }
+        }
+
+        /* RESPONSIVO PARA TABLETS */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .container { padding: 0 25px; }
+            
+            .chat-bubble {
+                max-width: 400px;
+                width: 80%;
+                padding: 18px 24px;
+            }
+            
+            .chat-bubble .typewriter-text {
+                font-size: 15px;
+                line-height: 1.4;
+            }
+            
+            .voice-status-indicator {
+                top: 15px;
+                right: 15px;
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+        }
+
+        /* PARA DESKTOP */
+        @media (min-width: 769px) {
+            .chat-bubble {
+                max-width: 420px;
+                width: 420px;
+                padding: 20px 26px;
+            }
+            
+            .chat-bubble .typewriter-text {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Carregando experiência premium v2.4...</div>
+        </div>
+    </div>
+
+    <div class="background-effects"></div>
+    
+    <!-- INDICADOR DE STATUS DE VOZ PREMIUM -->
+    <div class="voice-status-indicator" id="voice-status" aria-live="polite">
+        🎙️ Sistema de Voz Premium
+    </div>
+
+    <!-- CHAT BUBBLE PREMIUM MOBILE-FIRST OTIMIZADO -->
+    <div class="chat-bubble" id="speaking-text" aria-live="polite">
+        <div class="mic-icon">🎤</div>
+        <div class="typewriter-text" id="typewriter-content"></div>
+        <div class="speaking-indicator">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <div class="container" id="main-container" aria-busy="false">
+        
+        <!-- NOVA ESTRUTURA: HERO PRIMEIRO -->
+        <div class="hero-section" id="hero-section">
+            <h1 class="hero-title">MARCELO D'ÁVILA</h1>
+            <p class="hero-subtitle">
+                Olá! Saiba como criar automações, sites e link na bio<br>
+                <strong>Sem programação. Sem servidor pago. 100% na nuvem.</strong>
+            </p>
+        </div>
+
+        <!-- NAME SECTION EMBAIXO -->
+        <div class="name-section" id="name-section" aria-live="polite">
+            <div class="name-title">Como posso te chamar?</div>
+            <input type="text" class="name-input" id="nome-input" placeholder="Digite seu primeiro nome..." maxlength="25" aria-label="Digite seu primeiro nome">
+            <button class="name-submit" onclick="submitName()" id="name-submit">
+                <span class="spinner"></span>
+                <span class="text">CONTINUAR</span>
+            </button>
+        </div>
+
+        <!-- SEÇÃO MENSAGEM PERSONALIZADA ULTRA PREMIUM -->
+        <div class="personalized-message-section" id="personalized-message-section" aria-live="polite">
+            <!-- LOADING DA MENSAGEM -->
+            <div class="message-loading" id="message-loading">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">Criando algo especial para você...</div>
+                <div class="loading-subtext">Calculando distância real via múltiplas fontes...</div>
+            </div>
+            
+            <!-- CONTEÚDO DA MENSAGEM (OCULTO INICIALMENTE) -->
+            <div class="message-content" id="message-content" style="display: none;">
+                <!-- HEADER DA MENSAGEM -->
+                <div class="message-header">
+                    <h2 class="message-title">🎯 <span id="message-user-name">Nome</span>, esta mensagem é para você!</h2>
+                    <div class="message-subtitle">Uma mensagem especial cruzou o Brasil para chegar até você</div>
+                </div>
+                
+                <!-- JORNADA DA MENSAGEM -->
+                <div class="journey-container">
+                    <h3 class="journey-title">🗺️ Jornada da Sua Mensagem</h3>
+                    
+                    <div class="route-container">
+                        <div class="route-point">
+                            <div class="point-marker">📍</div>
+                            <div class="point-label">Timóteo-MG</div>
+                        </div>
+                        <div class="route-line">
+                            <div class="moving-dot"></div>
+                            <div class="distance-label" id="distance-km">586 km</div>
+                        </div>
+                        <div class="route-point">
+                            <div class="point-marker">🎯</div>
+                            <div class="point-label" id="destination-city">São Paulo-SP</div>
+                        </div>
+                    </div>
+                    
+                    <div class="distance-info">
+                        <div class="distance-item">
+                            <span class="number" id="distance-number">586</span>
+                            <span class="label">quilômetros</span>
+                        </div>
+                        <div class="distance-item">
+                            <span class="number" id="travel-time">7h</span>
+                            <span class="label">de viagem</span>
+                        </div>
+                        <div class="distance-item">
+                            <span class="number">0.2</span>
+                            <span class="label">segundos online</span>
+                        </div>
+                    </div>
+                    
+                    <div class="location-badges">
+                        <div class="location-badge">📤 Origem: Timóteo-MG</div>
+                        <div class="location-badge">📥 Destino: <span id="destination-badge">São Paulo-SP</span></div>
+                    </div>
+                </div>
+                
+                <!-- MENSAGEM PESSOAL -->
+                <div class="personal-message-container">
+                    <div class="personal-message" id="personal-message-text">
+                        <!-- Será preenchida dinamicamente -->
+                    </div>
+                    
+                    <div class="signature">
+                        Com carinho,<br>
+                        📍 Enviado direto de Timóteo-MG
+                    </div>
+                </div>
+                
+                <!-- CALL TO ACTION DA MENSAGEM -->
+                <div class="message-cta-container">
+                    <div class="message-cta-text">
+                        <strong id="cta-user-name">Nome</strong>, olha o que consigo fazer para VOCÊ!<br>
+                        Imagina isso para seus clientes...
+                    </div>
+                    
+                    <div class="message-impact-points">
+                        <div class="impact-point">🎯 Personalização em Massa</div>
+                        <div class="impact-point">🚀 Automação Inteligente</div>
+                        <div class="impact-point">💎 Experiência Premium</div>
+                        <div class="impact-point">⚡ Impacto Emocional</div>
+                    </div>
+                </div>
+                
+                <!-- TIMESTAMP -->
+                <div class="message-timestamp" id="message-timestamp">
+                    ⏰ Enviado hoje às 15:30 (horário de Brasília) | 🗓️ 30 de junho de 2025
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 3: PROPOSTA ATUALIZADA -->
+        <div class="proposal-section" id="proposal-section" aria-live="polite">
+            <div class="proposal-text">
+                Quanto valeria oferecer essas automações a clínicas, advogados, contabilidades ou um negócio?
+            </div>
+            <div class="proposal-highlight">
+                Faça automações + sites + link na bio<br>
+                Sem saber programar, sem domínio pago!
+            </div>
+            <ul class="proposal-checklist">
+                <li>Automações com custo quase ZERO e maior ROI</li>
+                <li>Google Maps da localidade + Saudação personalizada + Gírias Regionais</li>
+                <li>Sites especializados com IA que conversa com cliente</li>
+                <li>Links de Redes Sociais com atendimento</li>
+                <li>Automações que superam WhatsApp</li>
+                <li>Sem programar nenhum código ou linha</li>
+                <li>Todos precisam</li>
+            </ul>
+        </div>
+
+        <!-- SEÇÃO 4: DEMONSTRAÇÃO VISUAL -->
+        <div class="demo-section" id="demo-section">
+            <div class="demo-gif" role="img" aria-label="Demonstração da automação funcionando em celular">📱</div>
+            <div class="demo-caption">Veja rodando sem servidor e sem custo!</div>
+        </div>
+
+        <!-- SEÇÃO 5: QUIZ COM 4 OPÇÕES PREMIUM -->
+        <div class="quiz-section" id="quiz-section" aria-live="polite">
+            <div class="quiz-title">Quanto você cobraria por esse serviço, <span id="quiz-name">Nome</span>?</div>
+            <div class="quiz-options" role="radiogroup" aria-label="Opções de preço">
+                <button class="quiz-option" onclick="selectQuizOption('500', this)" role="radio" aria-label="500 reais">
+                    <span class="emoji">💰</span>
+                    <span class="price">R$ 500,00</span>
+                </button>
+                <button class="quiz-option" onclick="selectQuizOption('1500', this)" role="radio" aria-label="1500 reais">
+                    <span class="emoji">💎</span>
+                    <span class="price">R$ 1.500,00</span>
+                </button>
+                <button class="quiz-option" onclick="selectQuizOption('2000', this)" role="radio" aria-label="2000 reais">
+                    <span class="emoji">🏆</span>
+                    <span class="price">R$ 2.000,00</span>
+                </button>
+                <button class="quiz-option" onclick="selectQuizOption('3000', this)" role="radio" aria-label="3000 reais">
+                    <span class="emoji">👑</span>
+                    <span class="price">R$ 3.000,00</span>
+                </button>
+            </div>
+            <div class="quiz-timer">
+                <span>⏱️ Tempo restante:</span>
+                <div class="timer-bar">
+                    <div class="timer-fill" id="timer-fill"></div>
+                </div>
+                <span id="timer-countdown">20s</span>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 6: BÔNUS SIMPLIFICADO E ACELERADO -->
+        <div class="bonus-section" id="bonus-section" aria-live="polite">
+            <div class="bonus-title">🎁 Comprando hoje você ganha!</div>
+            <div class="bonus-items">
+                <div class="bonus-item">🎬 +1000 Vídeos Faceless</div>
+                <div class="bonus-item">🎨 3 Feeds Luxo para vender como seus = 100% lucro</div>
+            </div>
+            <div class="bonus-urgency">
+                🔥 Oferta por tempo limitado - Não perca!
+            </div>
+        </div>
+
+        <!-- SEÇÃO 7: OFERTA BREAKDOWN -->
+        <div class="offer-section" id="offer-section" aria-live="polite">
+            <div class="offer-chosen" id="offer-chosen">
+                Você escolheu R$ <span id="chosen-value">0</span>,00
+            </div>
+            <div class="offer-real">
+                Mas hoje é só R$ 27,00!
+            </div>
+            <div class="offer-savings" id="offer-savings">
+                Economia de R$ <span id="savings-amount">1.473</span>,00!
+            </div>
+            <div class="bonus-urgency">
+                ⚡ Acaba hoje! Preço sobe na segunda-feira
+            </div>
+        </div>
+
+        <!-- === SEÇÃO 8: CHECKOUT COMPLETO PREMIUM === -->
+        <div class="checkout-section" id="checkout-section" aria-live="polite">
+            <div class="checkout-title">💳 Finalizar Pedido - R$ 27,00</div>
+            
+            <!-- FORMULÁRIO COMPLETO -->
+            <div class="checkout-form">
+                <div class="form-group">
+                    <label class="form-label" for="customer-name">Nome Completo *</label>
+                    <input type="text" class="form-input" id="customer-name" placeholder="Digite seu nome completo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="customer-document">CPF/CNPJ *</label>
+                    <input type="text" class="form-input" id="customer-document" placeholder="000.000.000-00" required>
+                    <div class="document-type-indicator" id="document-type">Digite para detectar CPF ou CNPJ automaticamente</div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="customer-email">E-mail *</label>
+                    <input type="email" class="form-input" id="customer-email" placeholder="seu@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="customer-phone">WhatsApp *</label>
+                    <input type="tel" class="form-input" id="customer-phone" placeholder="(11) 99999-9999" required>
+                </div>
+            </div>
+            
+            <!-- MÉTODO DE PAGAMENTO -->
+            <div class="payment-title">Escolha a forma de pagamento:</div>
+            <div class="payment-options" role="radiogroup" aria-label="Métodos de pagamento">
+                <div class="payment-option selected" data-method="pix" onclick="selectPayment('pix', this)" role="radio" aria-label="PIX">
+                    <div class="payment-icon">🏦</div>
+                    <div class="payment-name">PIX</div>
+                </div>
+                <div class="payment-option" data-method="card" onclick="selectPayment('card', this)" role="radio" aria-label="Cartão">
+                    <div class="payment-icon">💳</div>
+                    <div class="payment-name">Cartão</div>
+                </div>
+            </div>
+            
+            <button class="final-checkout-btn" onclick="processInlineCheckout()" id="final-checkout-btn">
+                <div class="checkout-spinner"></div>
+                <span class="text">Confirmar Pedido - R$ 27,00</span>
+            </button>
+            
+            <!-- STATUS DO CHECKOUT -->
+            <div class="checkout-status" id="checkout-status">
+                ✅ Pedido confirmado com sucesso!
+            </div>
+        </div>
+
+        <!-- SEÇÃO 9: PÓS-CHECKOUT & WHATSAPP -->
+        <div class="whatsapp-section" id="whatsapp-section" aria-live="polite">
+            <div class="whatsapp-text" id="whatsapp-text">
+                Perfeito, <span id="final-user-name">Nome</span>! Te vejo do outro lado!
+            </div>
+            <button class="whatsapp-btn" onclick="openWhatsApp()">
+                📱 Abrir WhatsApp e Receber Acesso
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURAÇÕES PREMIUM v2.4 - ACELERADO
+        const CONFIG = {
+            MARCELO_API_URL: 'https://www.marcelodavila.com.br/32abaf6d',
+            GOOGLE_SHEETS_URL: 'https://script.google.com/macros/s/AKfycbwfPG6njxxFfjVG1H4P_mPWnhSPy4N78cKOY3KuZ7Xxq9YKKxMVx-tqZW2XkiJvQe0ehw/exec',
+            TIMEOUT: 8000,
+            VOICE_ENABLED: true,
+            LOCATION_TIMEOUT: 8000,
+            STORAGE_KEY: 'marcelo_premium_data_v24'
+        };
+
+        // VARIÁVEIS GLOBAIS LIMPAS
+        let userData = {
+            name: '',
+            city: 'São Paulo',
+            state: 'SP',
+            region: 'São Paulo',
+            currentTime: '',
+            timeOfDay: '',
+            dayOfWeek: '',
+            greetingPeriod: '',
+            realDistance: 586,
+            travelTime: '7h',
+            visitCount: 0,
+            lastVisit: null
+        };
+
+        let currentStep = 0;
+        let selectedQuizValue = '';
+        let selectedPaymentMethod = 'pix';
+        let activeTimers = new Map();
+        let locationDetected = false;
+        let currentActiveSection = '';
+        let customerData = {};
+        let tempoInicio = Date.now();
+        let messageVariationIndex = 0;
+
+        // SISTEMA DE GEOLOCALIZAÇÃO SIMPLIFICADO E CORRIGIDO
+        class LocationDetector {
+            constructor() {
+                this.cache = new Map();
+            }
+
+            async detectLocation() {
+                const sources = [
+                    {
+                        name: 'ipapi.co',
+                        url: 'https://ipapi.co/json/',
+                        parser: (data) => ({
+                            city: data.city,
+                            state: data.region_code || data.region,
+                            country: data.country_code,
+                            lat: data.latitude,
+                            lon: data.longitude
+                        })
+                    },
+                    {
+                        name: 'ipinfo.io',
+                        url: 'https://ipinfo.io/json',
+                        parser: (data) => {
+                            const [lat, lon] = (data.loc || '').split(',').map(parseFloat);
+                            return {
+                                city: data.city,
+                                state: data.region,
+                                country: data.country,
+                                lat: lat,
+                                lon: lon
+                            };
+                        }
+                    }
+                ];
+
+                console.log('🌍 Iniciando detecção de localização...');
+                
+                for (const source of sources) {
+                    try {
+                        console.log(`🔍 Tentando ${source.name}...`);
+                        
+                        const controller = new AbortController();
+                        const timeoutId = setTimeout(() => controller.abort(), 5000);
+                        
+                        const response = await fetch(source.url, {
+                            signal: controller.signal,
+                            headers: {
+                                'Accept': 'application/json',
+                                'Cache-Control': 'no-cache'
+                            }
+                        });
+
+                        clearTimeout(timeoutId);
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}`);
+                        }
+
+                        const data = await response.json();
+                        const location = source.parser(data);
+                        
+                        if (location.city && location.state && location.lat && location.lon) {
+                            console.log(`✅ Localização detectada via ${source.name}:`, location);
+                            return location;
+                        }
+
+                    } catch (error) {
+                        console.warn(`❌ ${source.name} falhou:`, error.message);
+                        continue;
+                    }
+                }
+
+                // Fallback para São Paulo
+                console.log('🏢 Usando localização padrão: São Paulo');
+                return {
+                    city: 'São Paulo',
+                    state: 'SP',
+                    country: 'BR',
+                    lat: -23.5505,
+                    lon: -46.6333
+                };
+            }
+        }
+
+        // SISTEMA DE CÁLCULO DE DISTÂNCIA SIMPLIFICADO
+        class DistanceCalculator {
+            constructor() {
+                this.origin = {
+                    lat: -19.5797,
+                    lon: -42.6297,
+                    city: 'Timóteo',
+                    state: 'MG'
+                };
+            }
+
+            calculateHaversineDistance(lat1, lon1, lat2, lon2) {
+                const toRad = (deg) => deg * (Math.PI / 180);
+                const R = 6371; // Raio da Terra em km
+
+                const dLat = toRad(lat2 - lat1);
+                const dLon = toRad(lon2 - lon1);
+
+                const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                         Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                         Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                const distance = R * c;
+
+                return Math.round(distance);
+            }
+
+            estimateTravelTime(distanceKm) {
+                const hours = distanceKm / 80;
+                
+                if (hours < 1) {
+                    return `${Math.round(hours * 60)}min`;
+                } else if (hours < 10) {
+                    return `${Math.round(hours * 10) / 10}h`;
+                } else {
+                    return `${Math.round(hours)}h`;
+                }
+            }
+
+            calculateDistance(location) {
+                try {
+                    console.log('📏 Calculando distância para:', location);
+
+                    let distance, travelTime;
+
+                    if (location.lat && location.lon) {
+                        distance = this.calculateHaversineDistance(
+                            this.origin.lat, this.origin.lon,
+                            location.lat, location.lon
+                        );
+                        travelTime = this.estimateTravelTime(distance);
+                        
+                        console.log(`✅ Distância calculada: ${distance}km (${travelTime})`);
+                    } else {
+                        distance = 586;
+                        travelTime = '7h';
+                        
+                        console.log(`⚠️ Usando distância padrão: ${distance}km (${travelTime})`);
+                    }
+
+                    // Validar resultado
+                    if (distance < 10) {
+                        distance = 50;
+                    } else if (distance > 4000) {
+                        distance = 3500;
+                    }
+
+                    return {
+                        distance: distance,
+                        travelTime: this.estimateTravelTime(distance),
+                        method: location.lat ? 'coordinates' : 'fallback'
+                    };
+
+                } catch (error) {
+                    console.error('❌ Erro no cálculo de distância:', error);
+                    
+                    return {
+                        distance: 586,
+                        travelTime: '7h',
+                        method: 'fallback'
+                    };
+                }
+            }
+        }
+
+        // DADOS REGIONAIS INCLUSIVOS - LINGUAGEM NEUTRA
+        const REGIONAL_GREETINGS = {
+            'AC': ['Olá, colega', 'E aí, colega', 'Tudo bem'],
+            'AL': ['Oxente, colega', 'Eita, colega', 'Ô colega'],
+            'BA': ['Oxente, colega', 'Ô colega', 'Eita, colega'],
+            'CE': ['Oxente, colega', 'Eita, colega', 'Ô colega'],
+            'DF': ['E aí, colega', 'Tranquilo, colega', 'Beleza, colega'],
+            'ES': ['E aí, colega', 'Tranquilo, colega', 'Beleza, colega'],
+            'GO': ['Uai, colega', 'Sô, colega', 'Trem bom, colega'],
+            'MA': ['Eita, colega', 'Ô colega', 'E aí, colega'],
+            'MG': ['Uai, sô', 'Ô de casa', 'Trem bom, colega'],
+            'MT': ['Uai, colega', 'Sô, colega', 'Tchê, colega'],
+            'MS': ['Che, colega', 'Uai, colega', 'Tche, colega'],
+            'PA': ['Égua, colega', 'E aí, colega', 'Beleza, colega'],
+            'PB': ['Oxente, colega', 'Eita, colega', 'Ô colega'],
+            'PE': ['Oxente, colega', 'Eita, colega', 'Ô colega'],
+            'PI': ['Oxente, colega', 'Eita, colega', 'Ô colega'],
+            'PR': ['Olá, colega', 'Tchê, colega', 'Beleza, colega'],
+            'RJ': ['E aí, colega', 'Beleza, colega', 'Tranquilo, colega'],
+            'RN': ['Oxente, colega', 'Eita, colega', 'Ô colega'],
+            'RO': ['E aí, colega', 'Beleza, colega', 'Tranquilo, colega'],
+            'RR': ['E aí, colega', 'Beleza, colega', 'Tranquilo, colega'],
+            'RS': ['Tchê', 'Bah, colega', 'Tri, colega'],
+            'SC': ['Tchê, colega', 'Bah, colega', 'Beleza, colega'],
+            'SE': ['Oxente, colega', 'Eita, colega', 'Ô colega'],
+            'SP': ['E aí, colega', 'Tranquilo, colega', 'Beleza, colega'],
+            'TO': ['E aí, colega', 'Beleza, colega', 'Tranquilo, colega']
+        };
+
+        // Instâncias das classes
+        const locationDetector = new LocationDetector();
+        const distanceCalculator = new DistanceCalculator();
+
+        // SISTEMA DE SCROLL AUTOMÁTICO REALISTA
+        function smoothScrollToSection(sectionId, behavior = 'smooth') {
+            const section = document.getElementById(sectionId);
+            if (section && section.style.display !== 'none') {
+                if (currentActiveSection) {
+                    const prevSection = document.getElementById(currentActiveSection);
+                    if (prevSection) {
+                        prevSection.classList.remove('section-active', 'section-reading');
+                    }
+                }
+                
+                currentActiveSection = sectionId;
+                section.classList.add('section-active');
+                
+                const offsetTop = section.offsetTop - 60;
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: behavior
+                });
+                
+                updateVoiceStatus(`📖 Lendo: ${getSectionName(sectionId)}`, 'reading-section');
+                
+                console.log(`📖 Scroll automático para: ${sectionId}`);
+            }
+        }
+        
+        function markSectionAsReading(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.add('section-reading');
+            }
+        }
+        
+        function getSectionName(sectionId) {
+            const names = {
+                'hero-section': 'Apresentação',
+                'name-section': 'Cadastro',
+                'personalized-message-section': 'Mensagem Especial',
+                'regional-section': 'Saudação Regional',
+                'proposal-section': 'Proposta',
+                'demo-section': 'Demonstração',
+                'quiz-section': 'Quiz',
+                'bonus-section': 'Bônus',
+                'offer-section': 'Oferta',
+                'checkout-section': 'Checkout',
+                'whatsapp-section': 'WhatsApp'
+            };
+            return names[sectionId] || 'Seção';
+        }
+
+        // SISTEMA DE CHAT BUBBLE PREMIUM MOBILE-FIRST
+        function showSpeakingText(text) {
+            const bubble = document.getElementById('speaking-text');
+            const typewriterContent = document.getElementById('typewriter-content');
+            const micIcon = bubble.querySelector('.mic-icon');
+            
+            bubble.classList.remove('completed', 'exit');
+            if (micIcon) {
+                micIcon.classList.remove('completed');
+                micIcon.textContent = '🎤';
+            }
+            
+            typewriterContent.textContent = text;
+            bubble.classList.add('active');
+            
+            console.log('💬 Chat bubble premium ativo:', text);
+        }
+        
+        function hideSpeakingText() {
+            const bubble = document.getElementById('speaking-text');
+            
+            bubble.classList.add('exit');
+            
+            setTimeout(() => {
+                bubble.classList.remove('active', 'exit', 'completed');
+                const micIcon = bubble.querySelector('.mic-icon');
+                if (micIcon) {
+                    micIcon.classList.remove('completed');
+                    micIcon.textContent = '🎤';
+                }
+            }, 400);
+        }
+
+        function updateVoiceStatus(text = '', type = '') {
+            const indicator = document.getElementById('voice-status');
+            
+            indicator.classList.remove('active', 'tts-mode', 'fallback-mode', 'reading-section');
+            
+            if (text) {
+                indicator.textContent = text;
+                indicator.classList.add('active');
+                
+                if (type) {
+                    indicator.classList.add(type);
+                }
+            } else {
+                indicator.classList.remove('active');
+            }
+        }
+
+        // SISTEMA TTS ROBUSTO PREMIUM SIMPLIFICADO
+        async function playRobustTTS(textId, personalizedData = {}) {
+            console.log(`🎙️ [TTS PREMIUM] Iniciando: ${textId}`);
+            
+            try {
+                const result = await playBrowserTTS(textId, personalizedData);
+                if (result && result.success) {
+                    console.log(`✅ [TTS PREMIUM] Browser TTS funcionou: ${textId}`);
+                    return result;
+                }
+            } catch (error) {
+                console.warn(`⚠️ [TTS PREMIUM] Browser TTS falhou: ${error.message}`);
+            }
+            
+            console.log(`📝 [TTS PREMIUM] Usando texto visual: ${textId}`);
+            return await playTextOnly(textId, personalizedData);
+        }
+
+        async function playBrowserTTS(textId, personalizedData = {}) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    if (!('speechSynthesis' in window)) {
+                        throw new Error('Speech Synthesis não suportado');
+                    }
+                    
+                    let textToSpeak = '';
+                    let displayText = '';
+                    
+                    // Mapeamento de textos INCLUSIVOS - NOVA SAUDAÇÃO REGIONAL DIRETA
+                    const textMap = {
+                        'hook-entrada': {
+                            text: "E aí! Eu sou o Marcelo e estou feliz que você chegou até aqui!",
+                            display: "E aí! Eu sou o Marcelo e estou feliz que você chegou até aqui!"
+                        },
+                        'saudacao-regional-direta': {
+                            text: `${personalizedData.giria}, ${personalizedData.nome}! Tu é de ${personalizedData.estado} mesmo? Sua cidade é ${personalizedData.cidade}! Que trem bom! Olha nossa distância: ${personalizedData.distancia} quilômetros! Bacana, show, Legal!`,
+                            display: `${personalizedData.giria}, ${personalizedData.nome}! Tu é de ${personalizedData.estado} mesmo? Sua cidade é ${personalizedData.cidade}! Que trem bom! Olha nossa distância: ${personalizedData.distancia} quilômetros! Bacana, show, Legal!`
+                        },
+                        'saudacao-regional': {
+                            text: `${personalizedData.periodo}, ${personalizedData.nome}! ${personalizedData.giria}, agora são ${personalizedData.horario} aí em ${personalizedData.cidade}.`,
+                            display: `${personalizedData.periodo}, ${personalizedData.nome}! ${personalizedData.giria}, agora são ${personalizedData.horario} aí em ${personalizedData.cidade}.`
+                        },
+                        'proposta-intro': {
+                            text: "Quanto valeria oferecer essas automações a clínicas, advogados, contabilidades ou um negócio?",
+                            display: "Quanto valeria oferecer essas automações a clínicas, advogados, contabilidades ou um negócio?"
+                        },
+                        'demo-apresentacao': {
+                            text: "Veja como funciona! Esta demonstração está rodando sem servidor e sem custo!",
+                            display: "Veja como funciona! Esta demonstração está rodando sem servidor e sem custo!"
+                        },
+                        'quiz-pergunta': {
+                            text: `${personalizedData.nome}, quanto você cobraria por esse serviço incrível?`,
+                            display: `${personalizedData.nome}, quanto você cobraria por esse serviço incrível?`
+                        },
+                        'bonus-revelacao': {
+                            text: "Mas espera! Comprando hoje você ganha mais de mil vídeos faceless e feeds luxo!",
+                            display: "Mas espera! Comprando hoje você ganha mais de mil vídeos faceless e feeds luxo!"
+                        },
+                        'oferta-personalizada': {
+                            text: `Você escolheu ${personalizedData.valor} reais, mas hoje é só vinte e sete reais!`,
+                            display: `Você escolheu R$ ${personalizedData.valor}, mas hoje é só R$ 27!`
+                        },
+                        'cta-checkout': {
+                            text: "Agora preencha seus dados e escolha PIX ou Cartão para finalizar!",
+                            display: "Agora preencha seus dados e escolha PIX ou Cartão para finalizar!"
+                        },
+                        'whatsapp-final': {
+                            text: `Perfeito, ${personalizedData.nome}! Te vejo do outro lado no WhatsApp!`,
+                            display: `Perfeito, ${personalizedData.nome}! Te vejo do outro lado no WhatsApp!`
+                        }
+                    };
+                    
+                    const config = textMap[textId];
+                    if (!config) {
+                        throw new Error(`Texto não encontrado: ${textId}`);
+                    }
+                    
+                    textToSpeak = config.text;
+                    displayText = config.display;
+                    
+                    updateVoiceStatus('🎤 Falando...', 'fallback-mode');
+                    showSpeakingText(displayText);
+                    
+                    speechSynthesis.cancel();
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    
+                    await ensureVoicesLoaded();
+                    
+                    const utterance = new SpeechSynthesisUtterance(humanizeTextForSpeech(textToSpeak));
+                    
+                    const voices = speechSynthesis.getVoices();
+                    const brazilianVoice = voices.find(voice => 
+                        voice.lang.includes('pt-BR') || 
+                        voice.lang.includes('pt_BR') ||
+                        voice.name.includes('Brazil') ||
+                        voice.name.includes('Luciana') ||
+                        voice.name.includes('Francisca')
+                    );
+                    
+                    if (brazilianVoice) {
+                        utterance.voice = brazilianVoice;
+                        console.log(`🎭 Voz brasileira selecionada: ${brazilianVoice.name}`);
+                    }
+                    
+                    utterance.rate = 0.85;
+                    utterance.pitch = 1.0;
+                    utterance.volume = 1.0;
+                    
+                    const text = textToSpeak.toLowerCase();
+                    if (text.includes('!') || text.includes('wow') || text.includes('incrível')) {
+                        utterance.pitch = 1.1;
+                        utterance.rate = 0.9;
+                    } else if (text.includes('?')) {
+                        utterance.pitch = 1.05;
+                    } else if (text.includes('reais') || text.includes('economia')) {
+                        utterance.rate = 0.8;
+                        utterance.pitch = 0.95;
+                    }
+                    
+                    let hasStarted = false;
+                    let hasEnded = false;
+                    
+                    utterance.onstart = () => {
+                        hasStarted = true;
+                        console.log(`🗣️ Fala iniciada: ${textId}`);
+                        markSectionAsReading(currentActiveSection);
+                    };
+                    
+                    utterance.onend = () => {
+                        if (hasEnded) return;
+                        hasEnded = true;
+                        
+                        console.log(`✅ Fala concluída: ${textId}`);
+                        
+                        const bubble = document.getElementById('speaking-text');
+                        const micIcon = bubble.querySelector('.mic-icon');
+                        
+                        bubble.classList.add('completed');
+                        if (micIcon) {
+                            micIcon.classList.add('completed');
+                            micIcon.textContent = '✓';
+                        }
+                        
+                        setTimeout(() => {
+                            hideSpeakingText();
+                            updateVoiceStatus();
+                            resolve({ 
+                                success: true, 
+                                type: 'browser-tts', 
+                                model: 'speech-synthesis',
+                                voice: brazilianVoice ? brazilianVoice.name : 'default'
+                            });
+                        }, 800);
+                    };
+                    
+                    utterance.onerror = (event) => {
+                        if (hasEnded) return;
+                        hasEnded = true;
+                        
+                        console.error(`❌ Erro na fala: ${event.error}`);
+                        hideSpeakingText();
+                        updateVoiceStatus();
+                        reject(new Error(`Speech error: ${event.error}`));
+                    };
+                    
+                    const startTimeout = setTimeout(() => {
+                        if (!hasStarted) {
+                            speechSynthesis.cancel();
+                            hideSpeakingText();
+                            updateVoiceStatus();
+                            reject(new Error('Speech timeout - não iniciou'));
+                        }
+                    }, 2000);
+                    
+                    const maxTimeout = setTimeout(() => {
+                        if (!hasEnded) {
+                            speechSynthesis.cancel();
+                            hideSpeakingText();
+                            updateVoiceStatus();
+                            reject(new Error('Speech timeout - muito longa'));
+                        }
+                    }, 15000);
+                    
+                    const cleanup = () => {
+                        clearTimeout(startTimeout);
+                        clearTimeout(maxTimeout);
+                    };
+                    
+                    utterance.onend = ((originalOnEnd) => {
+                        return function() {
+                            cleanup();
+                            if (originalOnEnd) originalOnEnd.call(this);
+                        };
+                    })(utterance.onend);
+                    
+                    utterance.onerror = ((originalOnError) => {
+                        return function(event) {
+                            cleanup();
+                            if (originalOnError) originalOnError.call(this, event);
+                        };
+                    })(utterance.onerror);
+                    
+                    speechSynthesis.speak(utterance);
+                    
+                } catch (error) {
+                    hideSpeakingText();
+                    updateVoiceStatus();
+                    reject(error);
+                }
+            });
+        }
+        
+        async function playTextOnly(textId, personalizedData = {}) {
+            try {
+                showSpeakingText(`📝 ${textId}: Simulação visual`);
+                updateVoiceStatus('📝 Modo Visual', 'fallback-mode');
+                
+                const duration = Math.max(2000, textId.length * 100);
+                await new Promise(resolve => setTimeout(resolve, duration));
+                
+                const bubble = document.getElementById('speaking-text');
+                const micIcon = bubble.querySelector('.mic-icon');
+                
+                bubble.classList.add('completed');
+                if (micIcon) {
+                    micIcon.classList.add('completed');
+                    micIcon.textContent = '👁️';
+                }
+                
+                await new Promise(resolve => setTimeout(resolve, 600));
+                hideSpeakingText();
+                updateVoiceStatus();
+                
+                return { success: true, type: 'visual-only', model: 'text' };
+                
+            } catch (error) {
+                console.error(`❌ Erro no texto visual:`, error.message);
+                hideSpeakingText();
+                updateVoiceStatus();
+                return { success: false, type: 'error', error: error.message };
+            }
+        }
+        
+        function ensureVoicesLoaded() {
+            return new Promise((resolve) => {
+                let voices = speechSynthesis.getVoices();
+                
+                if (voices.length > 0) {
+                    resolve(voices);
+                    return;
+                }
+                
+                let attempts = 0;
+                const checkVoices = () => {
+                    voices = speechSynthesis.getVoices();
+                    attempts++;
+                    
+                    if (voices.length > 0 || attempts > 15) {
+                        resolve(voices);
+                    } else {
+                        setTimeout(checkVoices, 100);
+                    }
+                };
+                
+                speechSynthesis.onvoiceschanged = checkVoices;
+                checkVoices();
+            });
+        }
+        
+        function humanizeTextForSpeech(text) {
+            return text
+                .replace(/\*\*/g, '')
+                .replace(/🌍|🎯|❓|💰|📱|🎁|💡|📖|🎤|✨|⚡|🔥|💎|👑|🏆|💳|📊|🗺️|🎙️|📝|👁️/g, '')
+                .replace(/\./g, '. ')
+                .replace(/,/g, ', ')
+                .replace(/\?/g, '? ')
+                .replace(/!/g, '! ')
+                .replace(/:/g, ': ')
+                .replace(/\s+/g, ' ')
+                .replace(/\b27\b/g, 'vinte e sete')
+                .replace(/\b500\b/g, 'quinhentos')
+                .replace(/\b1500\b/g, 'mil e quinhentos')
+                .replace(/\b2000\b/g, 'dois mil')
+                .replace(/\b3000\b/g, 'três mil')
+                .replace(/R\$\s*(\d+)/g, '$1 reais')
+                .replace(/\buai\b/gi, 'uái')
+                .replace(/\boxente\b/gi, 'oxente')
+                .replace(/\béita\b/gi, 'eita')
+                .replace(/\btchê\b/gi, 'tchê')
+                .trim();
+        }
+
+        // SISTEMA DE TIMERS PREMIUM
+        function setManagedTimer(name, callback, delay) {
+            clearManagedTimer(name);
+            const timerId = setTimeout(() => {
+                activeTimers.delete(name);
+                try {
+                    callback();
+                } catch (error) {
+                    console.error(`❌ Erro no timer ${name}:`, error);
+                }
+            }, delay);
+            activeTimers.set(name, timerId);
+            return timerId;
+        }
+
+        function clearManagedTimer(name) {
+            if (activeTimers.has(name)) {
+                clearTimeout(activeTimers.get(name));
+                activeTimers.delete(name);
+            }
+        }
+
+        function clearAllTimers() {
+            activeTimers.forEach((timerId) => clearTimeout(timerId));
+            activeTimers.clear();
+        }
+
+        // SISTEMA DE HORÁRIO E SAUDAÇÃO PREMIUM
+        function detectTime() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            
+            userData.currentTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+            
+            if (hours >= 0 && hours < 6) {
+                userData.timeOfDay = 'madrugada';
+                userData.greetingPeriod = 'Ôpa! É madrugada';
+            } else if (hours >= 6 && hours < 12) {
+                userData.timeOfDay = 'manhã';
+                userData.greetingPeriod = 'Bom dia';
+            } else if (hours >= 12 && hours < 18) {
+                userData.timeOfDay = 'tarde';
+                userData.greetingPeriod = 'Boa tarde';
+            } else {
+                userData.timeOfDay = 'noite';
+                userData.greetingPeriod = 'Boa noite';
+            }
+            
+            const days = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
+            userData.dayOfWeek = days[now.getDay()];
+            
+            console.log(`⏰ Horário detectado: ${userData.currentTime} - ${userData.greetingPeriod}`);
+        }
+
+        // SISTEMA DE GEOLOCALIZAÇÃO CORRIGIDO
+        async function detectLocation() {
+            try {
+                console.log('🌍 Iniciando detecção de localização corrigida...');
+                
+                const location = await locationDetector.detectLocation();
+                
+                if (location) {
+                    userData.city = location.city;
+                    userData.state = location.state;
+                    userData.region = location.state;
+                    
+                    const distanceResult = distanceCalculator.calculateDistance(location);
+                    userData.realDistance = distanceResult.distance;
+                    userData.travelTime = distanceResult.travelTime;
+                    
+                    locationDetected = true;
+                    
+                    console.log('✅ Localização e distância calculadas:', {
+                        city: userData.city,
+                        state: userData.state,
+                        distance: userData.realDistance,
+                        travelTime: userData.travelTime,
+                        method: distanceResult.method
+                    });
+                    
+                    return true;
+                }
+                
+                throw new Error('Nenhuma localização válida encontrada');
+                
+            } catch (error) {
+                console.warn('⚠️ Erro na detecção de localização:', error.message);
+                
+                userData.city = 'São Paulo';
+                userData.state = 'SP';
+                userData.region = 'São Paulo';
+                userData.realDistance = 586;
+                userData.travelTime = '7h';
+                
+                return false;
+            }
+        }
+
+        // === FUNÇÕES DE CHECKOUT COMPLETO ===
+
+        // MÁSCARA PARA TELEFONE E CPF/CNPJ
+        function setupPhoneMask() {
+            const phoneInput = document.getElementById('customer-phone');
+            
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                
+                if (value.length <= 11) {
+                    if (value.length <= 2) {
+                        value = value.replace(/(\d{0,2})/, '($1');
+                    } else if (value.length <= 7) {
+                        value = value.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+                    } else {
+                        value = value.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+                    }
+                }
+                
+                e.target.value = value;
+            });
+        }
+
+        function setupDocumentMask() {
+            const documentInput = document.getElementById('customer-document');
+            const indicator = document.getElementById('document-type');
+            
+            documentInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                
+                if (value.length <= 11) {
+                    // CPF: 000.000.000-00
+                    if (value.length <= 3) {
+                        value = value.replace(/(\d{0,3})/, '$1');
+                    } else if (value.length <= 6) {
+                        value = value.replace(/(\d{3})(\d{0,3})/, '$1.$2');
+                    } else if (value.length <= 9) {
+                        value = value.replace(/(\d{3})(\d{3})(\d{0,3})/, '$1.$2.$3');
+                    } else {
+                        value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{0,2})/, '$1.$2.$3-$4');
+                    }
+                    
+                    if (value.length >= 8) {
+                        indicator.textContent = '👤 CPF detectado automaticamente';
+                        indicator.style.color = 'var(--success-green)';
+                    } else {
+                        indicator.textContent = 'Digite para detectar CPF ou CNPJ automaticamente';
+                        indicator.style.color = 'var(--color-text-secondary)';
+                    }
+                } else {
+                    // CNPJ: 00.000.000/0000-00
+                    if (value.length <= 14) {
+                        if (value.length <= 2) {
+                            value = value.replace(/(\d{0,2})/, '$1');
+                        } else if (value.length <= 5) {
+                            value = value.replace(/(\d{2})(\d{0,3})/, '$1.$2');
+                        } else if (value.length <= 8) {
+                            value = value.replace(/(\d{2})(\d{3})(\d{0,3})/, '$1.$2.$3');
+                        } else if (value.length <= 12) {
+                            value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{0,4})/, '$1.$2.$3/$4');
+                        } else {
+                            value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{0,2})/, '$1.$2.$3/$4-$5');
+                        }
+                        
+                        if (value.length >= 12) {
+                            indicator.textContent = '🏢 CNPJ detectado automaticamente';
+                            indicator.style.color = 'var(--color-accent)';
+                        } else {
+                            indicator.textContent = 'Digite para detectar CPF ou CNPJ automaticamente';
+                            indicator.style.color = 'var(--color-text-secondary)';
+                        }
+                    }
+                }
+                
+                e.target.value = value;
+                
+                // Atualizar placeholder baseado no comprimento
+                if (value.replace(/\D/g, '').length <= 11) {
+                    e.target.placeholder = '000.000.000-00';
+                } else {
+                    e.target.placeholder = '00.000.000/0000-00';
+                }
+            });
+        }
+
+        // VALIDAÇÃO DE CPF/CNPJ
+        function validateCPF(cpf) {
+            cpf = cpf.replace(/\D/g, '');
+            
+            if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) {
+                return false;
+            }
+            
+            let sum = 0;
+            for (let i = 0; i < 9; i++) {
+                sum += parseInt(cpf[i]) * (10 - i);
+            }
+            let digit1 = (sum * 10) % 11;
+            if (digit1 === 10) digit1 = 0;
+            
+            if (digit1 !== parseInt(cpf[9])) return false;
+            
+            sum = 0;
+            for (let i = 0; i < 10; i++) {
+                sum += parseInt(cpf[i]) * (11 - i);
+            }
+            let digit2 = (sum * 10) % 11;
+            if (digit2 === 10) digit2 = 0;
+            
+            return digit2 === parseInt(cpf[10]);
+        }
+
+        function validateCNPJ(cnpj) {
+            cnpj = cnpj.replace(/\D/g, '');
+            
+            if (cnpj.length !== 14 || /^(\d)\1+$/.test(cnpj)) {
+                return false;
+            }
+            
+            const weights1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+            const weights2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+            
+            let sum = 0;
+            for (let i = 0; i < 12; i++) {
+                sum += parseInt(cnpj[i]) * weights1[i];
+            }
+            let digit1 = sum % 11 < 2 ? 0 : 11 - (sum % 11);
+            
+            if (digit1 !== parseInt(cnpj[12])) return false;
+            
+            sum = 0;
+            for (let i = 0; i < 13; i++) {
+                sum += parseInt(cnpj[i]) * weights2[i];
+            }
+            let digit2 = sum % 11 < 2 ? 0 : 11 - (sum % 11);
+            
+            return digit2 === parseInt(cnpj[13]);
+        }
+
+        // VALIDAÇÃO COMPLETA DO FORMULÁRIO
+        function validateCheckoutForm() {
+            const requiredFields = [
+                { id: 'customer-name', name: 'Nome Completo' },
+                { id: 'customer-document', name: 'CPF/CNPJ' },
+                { id: 'customer-email', name: 'E-mail' },
+                { id: 'customer-phone', name: 'WhatsApp' }
+            ];
+
+            let isValid = true;
+            const errors = [];
+
+            // Limpar estilos anteriores
+            document.querySelectorAll('.form-input').forEach(input => {
+                input.classList.remove('error', 'success');
+            });
+
+            // Validar campos obrigatórios
+            requiredFields.forEach(field => {
+                const input = document.getElementById(field.id);
+                const value = input.value.trim();
+
+                if (!value) {
+                    input.classList.add('error');
+                    errors.push(`${field.name} é obrigatório`);
+                    isValid = false;
+                } else {
+                    input.classList.add('success');
+                }
+            });
+
+            // Validar CPF/CNPJ
+            const documentInput = document.getElementById('customer-document');
+            const document = documentInput.value.replace(/\D/g, '');
+            if (documentInput.value) {
+                let docValid = false;
+                if (document.length === 11) {
+                    docValid = validateCPF(document);
+                } else if (document.length === 14) {
+                    docValid = validateCNPJ(document);
+                }
+                
+                if (!docValid) {
+                    documentInput.classList.remove('success');
+                    documentInput.classList.add('error');
+                    errors.push('CPF/CNPJ inválido');
+                    isValid = false;
+                }
+            }
+
+            // Validar e-mail
+            const emailInput = document.getElementById('customer-email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailInput.value && !emailRegex.test(emailInput.value)) {
+                emailInput.classList.remove('success');
+                emailInput.classList.add('error');
+                errors.push('E-mail inválido');
+                isValid = false;
+            }
+
+            // Validar telefone
+            const phoneInput = document.getElementById('customer-phone');
+            const phone = phoneInput.value.replace(/\D/g, '');
+            if (phoneInput.value && phone.length < 10) {
+                phoneInput.classList.remove('success');
+                phoneInput.classList.add('error');
+                errors.push('WhatsApp inválido');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                showCheckoutStatus('❌ ' + errors[0], 'error');
+            }
+
+            return isValid;
+        }
+
+        // COLETAR DADOS COMPLETOS
+        function collectCheckoutData() {
+            return {
+                nome: document.getElementById('customer-name').value.trim(),
+                documento: document.getElementById('customer-document').value.trim(),
+                email: document.getElementById('customer-email').value.trim(),
+                whatsapp: document.getElementById('customer-phone').value.trim(),
+                metodoPagamento: selectedPaymentMethod,
+                valor: 27.00,
+                valorQuiz: selectedQuizValue,
+                produto: 'Automações Premium - Marcelo D\'Ávila',
+                timestamp: new Date().toISOString(),
+                // Dados do funil
+                nomeCapturado: userData.name,
+                cidadeDetectada: userData.city,
+                estadoDetectado: userData.state,
+                distanciaCalculada: userData.realDistance,
+                tempoNaPagina: Math.round((Date.now() - tempoInicio) / 1000),
+                userAgent: navigator.userAgent,
+                url: window.location.href
+            };
+        }
+
+        // ENVIAR PARA GOOGLE SHEETS
+        async function sendToGoogleSheets(data) {
+            try {
+                console.log('📊 Enviando dados para Google Sheets...');
+                console.log('📋 Dados:', data);
+
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), CONFIG.TIMEOUT);
+
+                const response = await fetch(CONFIG.GOOGLE_SHEETS_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+                console.log('✅ Resposta do Google Sheets:', result);
+                
+                return { success: true, data: result };
+
+            } catch (error) {
+                console.error('❌ Erro no Google Sheets:', error);
+                throw error;
+            }
+        }
+
+        // FUNÇÃO PRINCIPAL DO CHECKOUT COMPLETO
+        async function processInlineCheckout() {
+            console.log('💳 Processando checkout completo...');
+
+            // Validar formulário
+            if (!validateCheckoutForm()) {
+                return;
+            }
+
+            // Coletar dados
+            customerData = collectCheckoutData();
+
+            // Atualizar UI
+            const btn = document.getElementById('final-checkout-btn');
+            btn.classList.add('processing');
+            btn.disabled = true;
+            btn.querySelector('.text').textContent = 'Processando...';
+
+            showCheckoutStatus('🔄 Enviando dados...', 'processing');
+
+            try {
+                // Enviar para Google Sheets
+                const result = await sendToGoogleSheets(customerData);
+                
+                if (result.success) {
+                    showCheckoutStatus('✅ Pedido confirmado com sucesso!', 'success');
+                    
+                    // Aguardar um pouco e prosseguir
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    
+                    // Ir para WhatsApp
+                    document.getElementById('checkout-section').style.display = 'none';
+                    showWhatsApp();
+                } else {
+                    throw new Error('Falha no processamento');
+                }
+
+            } catch (error) {
+                console.error('❌ Erro no checkout:', error);
+                
+                // Resetar UI
+                btn.classList.remove('processing');
+                btn.disabled = false;
+                btn.querySelector('.text').textContent = 'Confirmar Pedido - R$ 27,00';
+                
+                showCheckoutStatus(`❌ Erro: ${error.message}`, 'error');
+                
+                // Permitir nova tentativa
+                setTimeout(() => {
+                    showCheckoutStatus('🔄 Você pode tentar novamente', 'processing');
+                }, 3000);
+            }
+        }
+
+        // MOSTRAR STATUS DO CHECKOUT
+        function showCheckoutStatus(message, type = '') {
+            const statusElement = document.getElementById('checkout-status');
+            statusElement.textContent = message;
+            statusElement.className = `checkout-status active ${type}`;
+
+            // Auto-hide success messages
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusElement.classList.remove('active');
+                }, 3000);
+            }
+        }
+
+        // GERAÇÃO DE MENSAGENS PERSONALIZADAS COM ROTAÇÃO INTELIGENTE
+        function generatePersonalizedMessage() {
+            const greetings = REGIONAL_GREETINGS[userData.state] || ['Olá, colega'];
+            const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+            
+            // Rotação inteligente baseada em critérios
+            const now = new Date();
+            const hour = now.getHours();
+            const dayOfWeek = now.getDay();
+            
+            // Índice baseado em horário + dia da semana + distância
+            const hourIndex = Math.floor(hour / 3); // 0-7 (8 períodos de 3h)
+            const dayIndex = dayOfWeek; // 0-6 
+            const distanceIndex = userData.realDistance < 200 ? 0 : userData.realDistance < 500 ? 1 : 2;
+            
+            messageVariationIndex = (hourIndex + dayIndex + distanceIndex) % 8;
+            
+            // Mensagem direta baseada na localização
+            const personalizedMessage = `<span class="heart-icon">❤️</span> <strong>${userData.name}, você está em ${userData.city} - ${userData.state}! São ${userData.realDistance} quilômetros de distância até aqui em Timóteo-MG!</strong> <span class="heart-icon">❤️</span><br><br>${randomGreeting}, você é especial e merece uma atenção única.`;
+            
+            console.log(`🎯 Mensagem regional personalizada gerada para: ${userData.city}-${userData.state}`);
+            console.log(`📊 Distância: ${userData.realDistance}km`);
+            
+            return personalizedMessage;
+        }
+
+        // ATUALIZAR TIMESTAMP DINÂMICO
+        function updateTimestamp() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const day = now.getDate();
+            const months = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 
+                          'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+            
+            const timestampText = `⏰ Enviado hoje às ${hours}:${minutes} (horário de Brasília) | 🗓️ ${day} de ${month} de ${year}`;
+            const timestampElement = document.getElementById('message-timestamp');
+            if (timestampElement) {
+                timestampElement.textContent = timestampText;
+            }
+        }
+
+        // FLUXO PRINCIPAL PREMIUM OTIMIZADO - ACELERADO
+        async function hideLoadingAndStart() {
+            const backgroundEffects = document.querySelector('.background-effects');
+            if (backgroundEffects) {
+                setTimeout(() => {
+                    backgroundEffects.classList.add('loaded');
+                }, 500);
+            }
+            
+            const loadingOverlay = document.getElementById('loading-overlay');
+            loadingOverlay.classList.add('fade-out');
+            
+            setManagedTimer('hide-loading', () => {
+                loadingOverlay.style.display = 'none';
+                setManagedTimer('auto-focus', () => {
+                    const input = document.getElementById('nome-input');
+                    input.focus();
+                }, 300);
+            }, 300);
+        }
+
+        async function submitName() {
+            const nomeInput = document.getElementById('nome-input');
+            const submitBtn = document.getElementById('name-submit');
+            const nome = nomeInput.value.trim();
+            
+            if (!nome) {
+                nomeInput.classList.add('error');
+                nomeInput.placeholder = 'Por favor, digite seu nome';
+                setManagedTimer('remove-error', () => {
+                    nomeInput.classList.remove('error');
+                    nomeInput.placeholder = 'Digite seu primeiro nome...';
+                }, 3000);
+                return;
+            }
+            
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            submitBtn.querySelector('.text').textContent = 'Processando...';
+            
+            userData.name = nome;
+            
+            detectTime();
+            const locationPromise = detectLocation();
+            
+            // TEMPO ACELERADO: 300ms ao invés de 800ms
+            await new Promise(resolve => setManagedTimer('process-name', resolve, 300));
+            
+            // NOVA ESTRUTURA: ESCONDER AMBAS AS SEÇÕES
+            document.getElementById('name-section').style.display = 'none';
+            document.getElementById('hero-section').style.display = 'none';
+            
+            await locationPromise;
+            
+            showPersonalizedMessage();
+        }
+
+        async function showPersonalizedMessage() {
+            console.log('🎯 SEÇÃO 1: Mensagem Personalizada Premium (Pós-Cadastro) - ACELERADO');
+            
+            const messageSection = document.getElementById('personalized-message-section');
+            messageSection.style.display = 'block';
+            smoothScrollToSection('personalized-message-section');
+            
+            // TIMING ACELERADO: 300ms ao invés de 2500ms
+            await new Promise(resolve => setManagedTimer('message-loading', resolve, 300));
+            
+            updatePersonalizedMessageContent();
+            
+            document.getElementById('message-loading').style.display = 'none';
+            document.getElementById('message-content').style.display = 'block';
+            
+            // NOVA SAUDAÇÃO REGIONAL DIRETA
+            const greeting = getRegionalGreeting();
+            await playRobustTTS('saudacao-regional-direta', {
+                nome: userData.name,
+                estado: userData.state,
+                cidade: userData.city,
+                distancia: userData.realDistance,
+                giria: greeting
+            });
+            
+            // TIMING ACELERADO: 800ms ao invés de 1500ms
+            setManagedTimer('show-proposal', () => {
+                showProposal();
+            }, 800);
+        }
+
+        function updatePersonalizedMessageContent() {
+            const messageUserName = document.getElementById('message-user-name');
+            const ctaUserName = document.getElementById('cta-user-name');
+            if (messageUserName) messageUserName.textContent = userData.name;
+            if (ctaUserName) ctaUserName.textContent = userData.name;
+            
+            const destination = `${userData.city}-${userData.state}`;
+            const destinationCity = document.getElementById('destination-city');
+            const destinationBadge = document.getElementById('destination-badge');
+            if (destinationCity) destinationCity.textContent = destination;
+            if (destinationBadge) destinationBadge.textContent = destination;
+            
+            const distanceKm = document.getElementById('distance-km');
+            const distanceNumber = document.getElementById('distance-number');
+            const travelTime = document.getElementById('travel-time');
+            if (distanceKm) distanceKm.textContent = `${userData.realDistance} km`;
+            if (distanceNumber) distanceNumber.textContent = userData.realDistance;
+            if (travelTime) travelTime.textContent = userData.travelTime;
+            
+            const personalizedMessage = generatePersonalizedMessage();
+            const personalMessageText = document.getElementById('personal-message-text');
+            if (personalMessageText) {
+                personalMessageText.innerHTML = personalizedMessage;
+            }
+            
+            updateTimestamp();
+            
+            console.log('✅ Mensagem personalizada atualizada (ACELERADO):', {
+                nome: userData.name,
+                destino: destination,
+                distancia: userData.realDistance,
+                tempo: userData.travelTime
+            });
+        }
+
+        async function showProposal() {
+            console.log('💡 SEÇÃO 2: Proposta');
+            
+            const proposalSection = document.getElementById('proposal-section');
+            proposalSection.style.display = 'block';
+            smoothScrollToSection('proposal-section');
+            
+            await playRobustTTS('proposta-intro');
+            
+            setManagedTimer('show-demo', () => {
+                showDemo();
+            }, 2000);
+        }
+
+        async function showDemo() {
+            console.log('📱 SEÇÃO 3: Demo');
+            
+            const demoSection = document.getElementById('demo-section');
+            demoSection.style.display = 'block';
+            smoothScrollToSection('demo-section');
+            
+            await playRobustTTS('demo-apresentacao');
+            
+            setManagedTimer('show-quiz', () => {
+                showQuiz();
+            }, 3000);
+        }
+
+        async function showQuiz() {
+            console.log('❓ SEÇÃO 4: Quiz');
+            
+            const quizNameElement = document.getElementById('quiz-name');
+            if (quizNameElement) quizNameElement.textContent = userData.name;
+            
+            const quizSection = document.getElementById('quiz-section');
+            quizSection.style.display = 'block';
+            smoothScrollToSection('quiz-section');
+            
+            await playRobustTTS('quiz-pergunta', {
+                nome: userData.name
+            });
+            
+            startQuizTimer();
+        }
+
+        function startQuizTimer() {
+            let timeLeft = 20;
+            const timerElement = document.getElementById('timer-countdown');
+            const timerFill = document.getElementById('timer-fill');
+            
+            function updateTimer() {
+                timeLeft--;
+                if (timerElement) timerElement.textContent = `${timeLeft}s`;
+                
+                const percentage = (timeLeft / 20) * 100;
+                if (timerFill) timerFill.style.width = `${percentage}%`;
+                
+                if (timeLeft <= 0) {
+                    clearManagedTimer('quiz-timer');
+                    if (!selectedQuizValue) {
+                        const secondOption = document.querySelector('.quiz-option:nth-child(2)');
+                        if (secondOption) {
+                            selectQuizOption('1500', secondOption);
+                        }
+                    }
+                    return;
+                }
+                
+                setManagedTimer('quiz-timer', updateTimer, 1000);
+            }
+            
+            setManagedTimer('quiz-timer', updateTimer, 1000);
+        }
+
+        function selectQuizOption(value, element) {
+            if (selectedQuizValue) return;
+            
+            clearManagedTimer('quiz-timer');
+            selectedQuizValue = value;
+            
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.disabled = true;
+                option.classList.remove('selected');
+            });
+            
+            element.classList.add('selected');
+            
+            setManagedTimer('show-bonus', () => {
+                showBonus();
+            }, 1000);
+        }
+
+        async function showBonus() {
+            console.log('🎁 SEÇÃO 5: Bônus');
+            
+            const bonusSection = document.getElementById('bonus-section');
+            bonusSection.style.display = 'block';
+            smoothScrollToSection('bonus-section');
+            
+            await playRobustTTS('bonus-revelacao');
+            
+            setManagedTimer('show-offer', () => {
+                showOffer();
+            }, 2000);
+        }
+
+        async function showOffer() {
+            console.log('💰 SEÇÃO 6: Oferta');
+            
+            document.getElementById('bonus-section').style.display = 'none';
+            
+            const chosenValueElement = document.getElementById('chosen-value');
+            const savingsAmountElement = document.getElementById('savings-amount');
+            if (chosenValueElement) chosenValueElement.textContent = selectedQuizValue;
+            
+            const savings = parseInt(selectedQuizValue) - 27;
+            if (savingsAmountElement) savingsAmountElement.textContent = savings.toLocaleString('pt-BR');
+            
+            const offerSection = document.getElementById('offer-section');
+            offerSection.style.display = 'block';
+            smoothScrollToSection('offer-section');
+            
+            await playRobustTTS('oferta-personalizada', {
+                valor: selectedQuizValue
+            });
+            
+            setManagedTimer('show-checkout', () => {
+                showCheckout();
+            }, 1500);
+        }
+
+        async function showCheckout() {
+            console.log('💳 SEÇÃO 7: Checkout Completo');
+            
+            // Auto-preencher nome se disponível
+            const customerNameInput = document.getElementById('customer-name');
+            if (userData.name && customerNameInput) {
+                customerNameInput.value = userData.name;
+            }
+            
+            const checkoutSection = document.getElementById('checkout-section');
+            checkoutSection.style.display = 'block';
+            smoothScrollToSection('checkout-section');
+            
+            await playRobustTTS('cta-checkout');
+        }
+
+        function selectPayment(method, element) {
+            selectedPaymentMethod = method;
+            
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+
+        async function showWhatsApp() {
+            console.log('📱 SEÇÃO 8: WhatsApp Final');
+            
+            const finalUserNameElement = document.getElementById('final-user-name');
+            if (finalUserNameElement) finalUserNameElement.textContent = customerData.nome || userData.name;
+            
+            const whatsappSection = document.getElementById('whatsapp-section');
+            whatsappSection.style.display = 'block';
+            smoothScrollToSection('whatsapp-section');
+            
+            await playRobustTTS('whatsapp-final', {
+                nome: customerData.nome || userData.name
+            });
+        }
+
+        function openWhatsApp() {
+            const nomeCompleto = customerData.nome || userData.name;
+            const documento = customerData.documento || 'não informado';
+            const email = customerData.email || 'não informado';
+            const whatsapp = customerData.whatsapp || 'não informado';
+            
+            const message = `Olá! Acabei de finalizar o pedido das Automações Premium por R$ 27,00.
+
+*Dados do pedido:*
+• Nome: ${nomeCompleto}
+• CPF/CNPJ: ${documento}
+• E-mail: ${email}
+• WhatsApp: ${whatsapp}
+• Método: ${selectedPaymentMethod.toUpperCase()}
+• Valor escolhido: R$ ${selectedQuizValue}
+• Valor pago: R$ 27,00
+
+Onde recebo o acesso e os bônus?`;
+
+            const phoneNumber = '5531999999999'; // Substitua pelo número real
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // UTILITÁRIOS
+        function getRegionalGreeting() {
+            const greetings = REGIONAL_GREETINGS[userData.state];
+            if (!greetings) return 'Olá, colega';
+            return greetings[Math.floor(Math.random() * greetings.length)];
+        }
+
+        // EVENT LISTENERS E INICIALIZAÇÃO
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🎯 Marcelo D\'Ávila Premium Experience v2.4 - ACELERADO');
+            console.log('⚡ FLUXO ACELERADO: 300ms após nome → Saudação Regional Direta');
+            console.log('🗣️ NOVA FALA: "UAI SÔ, Nome! Tu é de MG mesmo? Sua cidade é Cidade! Que trem bom! Olha nossa distância: XXX quilômetros! Bacana, show, Legal!"');
+            console.log('📊 API REAL: Distância calculada via geolocalização');
+            
+            const nomeInput = document.getElementById('nome-input');
+            if (nomeInput) {
+                nomeInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        submitName();
+                    }
+                });
+            }
+            
+            // Configurar máscaras
+            setupPhoneMask();
+            setupDocumentMask();
+            
+            detectLocation().catch(error => {
+                console.warn('⚠️ Geolocalização inicial falhou');
+            });
+            
+            try {
+                await hideLoadingAndStart();
+            } catch (error) {
+                console.error('❌ Erro ao iniciar:', error);
+            }
+        });
+
+        window.addEventListener('beforeunload', () => {
+            clearAllTimers();
+            hideSpeakingText();
+            updateVoiceStatus();
+            
+            if ('speechSynthesis' in window) {
+                speechSynthesis.cancel();
+            }
+        });
+
+        console.log('🚀 Marcelo D\'Ávila Premium v2.4 - ACELERADO carregado!');
+        console.log('✨ IMPLEMENTAÇÕES ACELERADAS:');
+        console.log('  ✅ TIMING: 300ms após nome (ao invés de 800ms)');
+        console.log('  ✅ SAUDAÇÃO DIRETA: "UAI SÔ, Nome! Tu é de Estado mesmo? Sua cidade é Cidade! Que trem bom! Olha nossa distância: XXX quilômetros! Bacana, show, Legal!"');
+        console.log('  ✅ API REAL: Distância calculada via múltiplas fontes');
+        console.log('  ✅ ESTRUTURA VISUAL: Mantida (mapinha e jornada)');
+        console.log('  ✅ FLUXO: Inalterado após mensagem personalizada');
+        console.log('  ✅ RESPONSIVIDADE: Mobile-first perfeita');
+        console.log('');
+        console.log('💎 RESULTADO: Experiência mais rápida e dinâmica!');
+        console.log('🎯 IMPACTO: Maior retenção de atenção pós-cadastro');
+        console.log('📊 DADOS SALVOS EM: Google Sheets via Apps Script');
+    </script>
+</body>
+</html>
